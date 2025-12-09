@@ -1,50 +1,59 @@
-# Portfolio Website
-
-This is my personal portfolio website showcasing my projects and skills.
-
-# Modern Developer Portfolio
+# Abdullah Khan - Full Stack Developer Portfolio
 
 ![Portfolio Banner](https://github.com/user-attachments/assets/728646b9-aceb-49ef-a405-b5bfc5a75f26)
 
-
-A modern, responsive developer portfolio built with Next.js, Tailwind CSS, and Framer Motion. This portfolio showcases the projects, skills, and experience of Muhammad Talha Rana—a dedicated and versatile Frontend Developer based in Islamabad, Pakistan—featuring smooth animations and a clean design.
+A modern, responsive full-stack developer portfolio built with **Next.js 15**, **Tailwind CSS**, and **Framer Motion**. This portfolio showcases the projects, skills, and experience of **Abdullah Khan**—a dedicated Full Stack Developer based in **Islamabad, Pakistan**—featuring stunning animations, optimized performance, and a clean design.
 
 ## ✨ Features
 
 - 🌓 **Dark/Light Mode** - Seamless theme switching for user preference
-- 🎭 **Stunning Animations** - Powered by Framer Motion for a premium feel
-- 📱 **Fully Responsive** - Perfect experience on any device
-- ⚡ **Fast Performance** - Optimized for speed and SEO
-- 🧩 **Component-Based Architecture** - Modular and maintainable code
+- 🎭 **Stunning Animations** - Powered by Framer Motion with 60fps performance
+- 📱 **Fully Responsive** - Perfect experience on all devices (mobile, tablet, desktop)
+- ⚡ **High Performance** - 90+ Lighthouse scores with optimized code splitting
+- 🧩 **Component-Based Architecture** - Modular, maintainable, and scalable code
 - 🎨 **Custom UI Components** - Built with Tailwind CSS and shadcn/ui
-- 🔍 **Project Filtering** - Easy navigation through different project categories
-- 📬 **Contact Form** - Direct communication with potential clients/employers
-- 🌟 **Interactive Elements** - Engaging user experience with hover effects and animations
+- 🔍 **Project Filtering** - Easy navigation through different project categories (Web, Mobile)
+- 📬 **Contact Form** - Direct communication via Web3Forms integration
+- ✅ **100% Accessibility** - WCAG compliance for inclusive design
+- 🌟 **Interactive Elements** - Engaging user experience with hover effects and smooth transitions
 
-## 🛠️ Built With
+## 🛠️ Tech Stack
 
-- **Framework**: [Next.js](https://nextjs.org/)
+### Frontend
+- **Framework**: [Next.js 15](https://nextjs.org/) with React 19
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **Animations**: [Framer Motion](https://www.framer.com/motion/)
 - **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
-- **Icons**: [Lucide Icons](https://lucide.dev/)
-- **Fonts**: [Google Fonts](https://fonts.google.com/) (Inter, Poppins)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Language**: TypeScript
+
+### Backend & Services
+- **Contact Form**: [Web3Forms](https://web3forms.com/)
 - **Deployment**: [Vercel](https://vercel.com/)
+- **Version Control**: Git & GitHub
+
+### Design
+- **Fonts**: [Google Fonts](https://fonts.google.com/) (Poppins, Inter)
+- **Color Scheme**: Dark/Light mode with gradient accents
+
+## 🚀 Live Demo
+
+🌐 **[View Live Portfolio](https://abdullahkhan-portfolio.com)** *(Update with your domain)*
 
 ## 📸 Screenshots
 
 <div align="center">
   <img src="https://github.com/user-attachments/assets/027d427a-a52a-4617-b3f6-0aee651dc041" alt="Hero Section" width="80%" />
-  <p><em>Hero Section</em></p>
+  <p><em>Hero Section with Animated Particles</em></p>
   
-  <img src="https://github.com/user-attachments/assets/20091c81-3d02-4a8b-a17e-ebb6987dfe16" />
-  <p><em>Projects Section</em></p>
+  <img src="https://github.com/user-attachments/assets/20091c81-3d02-4a8b-a17e-ebb6987dfe16" alt="Projects Section" width="80%" />
+  <p><em>Featured Projects - Manzil Media & Fight House</em></p>
   
   <img src="https://github.com/user-attachments/assets/401ad725-f2cb-4f33-a778-d5e316258dea" alt="Light Mode" width="80%" />
-  <p><em>Light Mode</em></p>
+  <p><em>Light Mode Theme</em></p>
 </div>
 
-## 🚀 Getting Started
+## ⚡ Getting Started
 
 ### Prerequisites
 
@@ -55,7 +64,7 @@ A modern, responsive developer portfolio built with Next.js, Tailwind CSS, and F
 
 1. Clone the repository
    ```bash
-   git clone https://github.com/realistic-talha/portfolio-website.git
+   git clone https://github.com/Abdullahkhan1010/Portfolio.git
    cd portfolio-website
    ```
 
@@ -153,31 +162,43 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👨‍💻 About Me
 
-I'm Muhammad Talha Rana, a dedicated and versatile Frontend Developer based in Islamabad, Pakistan, with expertise in both web and mobile application development. I specialize in building dynamic, user-centric applications using HTML, CSS, JavaScript, TypeScript, React, Next.js, WordPress, Webflow, Flutter, Python, MongoDB, and MySQL. With a strong focus on performance optimization, responsive design, and seamless UI/UX, I consistently deliver polished, scalable, and intuitive digital solutions. My technical competencies include Microsoft Office, frontend and backend development, database management, version control (e.g., Git), Firebase integration, dynamic application architecture, and modern development frameworks.
+I'm **Abdullah Khan**, a passionate Full Stack Developer with expertise in building scalable web applications and modern mobile solutions. Based in **Islamabad, Pakistan**, I specialize in:
+
+- **Frontend**: React, Next.js, Flutter, Tailwind CSS, GSAP animations
+- **Backend**: Node.js, Express.js, Nest.js, C++, C#, .NET
+- **Databases**: MongoDB, Firebase, PostgreSQL, MySQL
+- **Specialties**: Performance optimization, E-commerce platforms, SPA development, API design
+
+### Featured Projects
+- **Manzil Media** - High-performance React/WebGL portfolio with 95+ Lighthouse scores
+- **Fight House** - Fitness platform with WooCommerce e-commerce integration
+- **E-Commerce Clothing Store** - Full-featured React/MongoDB online store
+- **Fitness Tracking App** - Cross-platform Flutter mobile application
+- **Music Player** - Web-based audio player with C++ backend
 
 **Education:**
 - BS Computer Science, Air University, Islamabad (2023–Present)
-- FSc (Pre-Engineering), Govt. Post Graduate College, Rajanpur (2020–2022)
-- Matriculation, District Public School, Rajanpur (2018–2020)
+- Intermediate (ICS), Punjab College, Islamabad (2020–2022)
+- Matriculation, SLS Montessori and School, Islamabad (2018–2020)
 
-**Experience:**
-- Web Developer, DEVCIR (Dec 2024–Present): Design and maintain interactive web applications using HTML, CSS, JavaScript, and Webflow to elevate user experience and functionality.
+**Current Role:**
+- Shopify Store Manager, Magasin Daata (April 2025–Present): Building custom Shopify storefronts with Liquid templating, JavaScript modules, and achieving 90+ PageSpeed scores
 
-**Skills:** HTML, CSS, JavaScript, TypeScript, React, Next.js, WordPress, Flutter, Firebase, Python, MongoDB, MySQL, Microsoft Office, Responsive Design, Version Control (Git), UI/UX, Webflow, Database Management
+## 🌐 Connect With Me
 
-**Projects:**
-- **2D Chess Game:** Built with C++ and SFML, featuring OOP-based modular design and GUI.
-- **CyberKit Pro:** Comprehensive cybersecurity toolkit (frontend: HTML/CSS/JS, backend: Python) with tools like port scanner, hash generator, log analyzer, password cracker, web crawler, and phishing detector.
-- **UniBuzz:** Flutter-based social platform integrated with Firebase for university students to share updates, post events, and interact within a community.
-- **Digitalising:** Fully responsive agency website designed to represent a digital solutions brand with a modern layout and smooth interactions.
-- **Document Signing Dashboard:** Developed in React and TypeScript, allowing users to upload, manage, and digitally sign documents securely via a clean and efficient interface.
+Have questions, feedback, or want to collaborate? Reach out:
 
-## 📬 Contact
+- **GitHub**: [@Abdullahkhan1010](https://github.com/Abdullahkhan1010)
+- **LinkedIn**: [Abdullah Khan](https://www.linkedin.com/in/abdullah-khan-webdev/)
+- **Email**: [abdullah.khan1010@gmail.com](mailto:abdullah.khan1010@gmail.com)
+- **Portfolio**: [abdullahkhan.dev](https://abdullahkhan-portfolio.com) *(Update with your domain)*
 
-Have questions, feedback, or want to work together? Reach out to me:
+---
 
-- **GitHub**: [Realistic-Talha](https://github.com/Realistic-Talha)
-- **LinkedIn**: [Muhammad Talha Rana](https://www.linkedin.com/in/realistictalha/)
+<div align="center">
+  <p>Made with ❤️ by <strong>Abdullah Khan</strong></p>
+  <p>⭐ If you like this portfolio, please consider giving it a star on GitHub!</p>
+</div>
 - **Email**: [talhayameen98@gmail.com](mailto:talhayameen98@gmail.com)
 - **Phone**: +92317-6442326
 
