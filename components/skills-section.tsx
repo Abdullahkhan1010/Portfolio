@@ -152,7 +152,7 @@ const skills: Skill[] = [
 ]
 
 export function SkillsSection() {
-  const sectionRef = useRef<HTMLSection>(null)
+  const sectionRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" })
   const [activeSkill, setActiveSkill] = useState<Skill | null>(null)
   const [isMounted, setIsMounted] = useState(false)

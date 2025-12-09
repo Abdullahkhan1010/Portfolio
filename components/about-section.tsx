@@ -465,26 +465,29 @@ export function AboutSection() {
                 {quadrantContent.map((quadrant, index) => (
                   <div key={index} className="quadrant-wrapper">
                     <motion.div 
-                      className="quadrant relative rounded-xl overflow-hidden border border-white/10 dark:border-white/20 bg-white/5 dark:bg-slate-900/40 backdrop-blur-sm transition-all duration-300 h-full light:shadow-[0_0_0_1px_rgba(14,165,233,0.25),0_6px_18px_-4px_rgba(14,165,233,0.25),0_0_28px_-4px_rgba(6,182,212,0.35)] light:[background:linear-gradient(135deg,rgba(255,255,255,0.65)_0%,rgba(240,249,255,0.9)_100%)] light:hover:[background:linear-gradient(135deg,rgba(240,253,255,0.95)_0%,rgba(224,242,254,0.9)_60%,rgba(219,234,254,0.95)_100%)]"
+                      className="quadrant relative rounded-xl overflow-hidden border border-white/10 dark:border-white/20 bg-white/5 dark:bg-slate-900/40 backdrop-blur-sm transition-all duration-300 h-full light:shadow-[0_0_0_1px_rgba(14,165,233,0.25),0_6px_18px_-4px_rgba(14,165,233,0.25),0_0_28px_-4px_rgba(6,182,212,0.35)] light:[background:linear-gradient(135deg,rgba(255,255,255,0.65)_0%,rgba(240,249,255,0.9)_100%)]"
                       initial={{ 
                         opacity: 0, 
                         scale: 0.8, 
                         y: 30,
                         rotateX: 15,
-                        rotateY: 5
+                        rotateY: 5,
+                        borderColor: "rgba(255, 255, 255, 0.1)"
                       }}
                       animate={isInView ? { 
                         opacity: 1, 
                         scale: 1, 
                         y: 0,
                         rotateX: 0,
-                        rotateY: 0
+                        rotateY: 0,
+                        borderColor: "rgba(255, 255, 255, 0.1)"
                       } : { 
                         opacity: 0, 
                         scale: 0.8, 
                         y: 30,
                         rotateX: 15,
-                        rotateY: 5
+                        rotateY: 5,
+                        borderColor: "rgba(255, 255, 255, 0.1)"
                       }}
                       transition={{ 
                         duration: 0.8, 
@@ -499,11 +502,10 @@ export function AboutSection() {
                         scale: 1.05,
                         rotateX: -5,
                         rotateY: 2,
-                        backgroundColor: "rgba(14, 165, 233, 0.08)",
-                        boxShadow: "0 20px 40px rgba(14, 165, 233, 0.15)",
-                        borderColor: "rgba(14, 165, 233, 0.4)",
+                        boxShadow: "0 20px 40px rgba(14, 165, 233, 0.2)",
+                        borderColor: "rgba(14, 165, 233, 0.5)",
                         transition: { 
-                          duration: 0.4, 
+                          duration: 0.3, 
                           ease: [0.25, 0.46, 0.45, 0.94],
                           type: "spring",
                           stiffness: 300,
@@ -523,6 +525,14 @@ export function AboutSection() {
                       />
                       {/* Light mode dark accent overlay */}
                       <div className="absolute inset-0 bg-slate-800/8 dark:bg-transparent rounded-xl"></div>
+                      
+                      {/* Hover color transition overlay - smooth between modes */}
+                      <motion.div 
+                        className="absolute inset-0 rounded-xl pointer-events-none light:bg-gradient-to-br light:from-cyan-50/40 light:to-sky-50/20 dark:bg-gradient-to-br dark:from-cyan-500/10 dark:to-blue-500/5"
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 1 }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                      />
                       
                       {/* Subtle dot pattern */}
                       <div className="absolute inset-0 opacity-10">
