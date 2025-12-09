@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/providers/theme-provider"
 import { Navbar } from "@/components/navbar"
 import { GlobalScrollIndicator } from "@/components/ui/global-scroll-indicator"
 import { FaviconHelper } from "@/components/favicon-helper"
+import SplashCursor from "@/components/splash-cursor"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -66,6 +67,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <SplashCursor />
           <GlobalScrollIndicator />
           {children}
         </ThemeProvider>

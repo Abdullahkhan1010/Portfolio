@@ -122,7 +122,7 @@ export function ContactForm() {
 
   return (
     <div className="relative z-10">
-      <div className="bg-card/80 backdrop-blur-lg rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl border border-primary/10 glowing-cursor-target">
+      <div className="bg-card/80 backdrop-blur-lg rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl border border-primary/10">
         <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-6">Send Me a Message</h3>
 
         <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 md:space-y-6">

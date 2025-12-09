@@ -4,7 +4,6 @@ import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
 import { Mail, MapPin, Phone, Github, Linkedin, Instagram } from "lucide-react"
 import { ContactForm } from "@/components/contact-form"
-import { GlowingCursor } from "@/components/glowing-cursor"
 
 export function ContactSection() {
   const ref = useRef(null)
@@ -135,7 +134,6 @@ export function ContactSection() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="relative"
           >
-            <GlowingCursor />
             <ContactForm />
           </motion.div>
         </div>
