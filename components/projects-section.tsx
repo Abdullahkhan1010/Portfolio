@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useMemo } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion, AnimatePresence, useInView } from "framer-motion"
-import { ArrowUpRight, Github, ExternalLink, Filter, Star, BadgeCheck, Info, X } from "lucide-react"
+import { ArrowUpRight, Github, ExternalLink, Filter, Star, BadgeCheck, Info, X, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ProjectCard } from "@/components/project-card"
 import { Input } from "@/components/ui/input"
@@ -193,6 +193,9 @@ export function ProjectsSection() {
       >
         {/* Floating image, visually separated, always contained */}
         <div className="relative flex-shrink-0 w-full md:w-[340px] min-h-[180px] sm:min-h-[220px] md:min-h-[260px] flex items-center justify-center z-30">
+          {/* Image section - only shown for featured projects */}
+          {featured && (
+            <>
           {/* Glow and shadow layers */}
           <motion.div
             className="absolute left-1/2 -translate-x-1/2 top-8 w-72 h-72 rounded-2xl shadow-2xl bg-gradient-to-br from-primary/10 via-blue-400/10 to-cyan-400/10 blur-2xl opacity-60 pointer-events-none"
@@ -248,6 +251,30 @@ export function ProjectsSection() {
             animate={{ y: [0, -10, 0], opacity: [0.3, 0.6, 0.3] }}
             transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
           />
+            </>
+          )}
+          {!featured && (
+            <motion.div
+              className="flex items-center justify-center"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.8 }}
+            >
+              <motion.div
+                className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full border-2 border-primary/30 dark:border-primary/40 flex items-center justify-center"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              >
+                <motion.div
+                  className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-primary/20 via-blue-500/15 to-cyan-400/10 dark:from-primary/25 dark:via-blue-500/20 dark:to-cyan-400/15 flex items-center justify-center"
+                  animate={{ scale: [1, 1.1, 1] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <Sparkles className="w-8 h-8 sm:w-10 sm:h-10 text-primary/60 dark:text-primary/70" />
+                </motion.div>
+              </motion.div>
+            </motion.div>
+          )}
           {featured && (
             <motion.div
               className="absolute top-4 left-4 z-30"
