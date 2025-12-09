@@ -5,16 +5,16 @@ A modern, responsive full-stack developer portfolio built with **Next.js 15**, *
 ## 📸 Screenshots
 
 ### Home Page (Dark Mode)
-![Home - Dark Mode](./public/home.png)
+![Home - Dark Mode](https://raw.githubusercontent.com/Abdullahkhan1010/Portfolio/main/public/home.png)
 
 ### Home Page (Light Mode)
-![Home - Light Mode](./public/homelight.png)
+![Home - Light Mode](https://raw.githubusercontent.com/Abdullahkhan1010/Portfolio/main/public/homelight.png)
 
 ### Skills Section
-![Skills Section](./public/skills.png)
+![Skills Section](https://raw.githubusercontent.com/Abdullahkhan1010/Portfolio/main/public/skills.png)
 
 ### About Section
-![About Section](./public/about.png)
+![About Section](https://raw.githubusercontent.com/Abdullahkhan1010/Portfolio/main/public/about.png)
 
 ## 🚀 Getting Started
 
