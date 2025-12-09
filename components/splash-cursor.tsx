@@ -1192,7 +1192,8 @@ export default function SplashCursor({
     window.addEventListener('mousedown', e => {
       const pointer = pointers[0];
       const target = e.target as HTMLElement;
-      isOverForm = !!(target.closest('form') || target.closest('input') || target.closest('textarea'));
+      // Only disable splash cursor when directly clicking on input/textarea, not the form container
+      isOverForm = !!(target.matches('input') || target.matches('textarea') || target.matches('button'));
       
       if (!isOverForm) {
         const posX = scaleByPixelRatio(e.clientX);
@@ -1216,7 +1217,8 @@ export default function SplashCursor({
     window.addEventListener('mousemove', e => {
       const pointer = pointers[0];
       const target = e.target as HTMLElement;
-      isOverForm = !!(target.closest('form') || target.closest('input') || target.closest('textarea'));
+      // Only disable splash cursor when directly over input/textarea, not the form container
+      isOverForm = !!(target.matches('input') || target.matches('textarea'));
       
       if (!isOverForm) {
         const posX = scaleByPixelRatio(e.clientX);
