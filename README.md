@@ -2,6 +2,20 @@
 
 A modern, responsive full-stack developer portfolio built with **Next.js 15**, **Tailwind CSS**, and **Framer Motion**.
 
+## 📸 Screenshots
+
+### Home Page (Dark Mode)
+![Home - Dark Mode](./public/home.png)
+
+### Home Page (Light Mode)
+![Home - Light Mode](./public/homelight.png)
+
+### Skills Section
+![Skills Section](./public/skills.png)
+
+### About Section
+![About Section](./public/about.png)
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -40,6 +54,16 @@ Portfolio/
 └── package.json              # Project dependencies
 ```
 
+## ✨ Features
+
+- 🌓 **Dark/Light Mode** - Seamless theme switching
+- 🎭 **Stunning Animations** - Powered by Framer Motion
+- 📱 **Fully Responsive** - Perfect on all devices
+- ⚡ **High Performance** - 90+ Lighthouse scores
+- 🧩 **Component-Based** - Modular architecture
+- 📬 **Contact Form** - Direct communication via Web3Forms
+- ✅ **100% Accessibility** - WCAG compliant
+
 ## 🌐 Connect With Me
 
 - **GitHub**: [@Abdullahkhan1010](https://github.com/Abdullahkhan1010)
@@ -51,6 +75,3 @@ Portfolio/
 <div align="center">
   <p>Made with ❤️ by <strong>Abdullah Khan</strong></p>
 </div>
-
-<!-- Detailed README with screenshots coming soon! -->
-<!-- For full details, see README_DETAILED.md -->
