@@ -22,7 +22,7 @@ const projects = [
     title: "Manzil Media",
     description:
       "High-performance React/WebGL portfolio with 60fps animations, 95+ Lighthouse scores, and optimized SEO.",
-    image: "/manzil-media.png",
+    image: "/manzilmedia.png",
     category: "web",
     technologies: ["React", "Framer Motion", "GSAP", "Tailwind CSS", "WebGL"],
     demoUrl: "https://manzilmedia.org",
@@ -33,7 +33,7 @@ const projects = [
     id: 2,
     title: "Fight House",
     description: "Fitness platform with dynamic schedules, WooCommerce shop, and Google Maps integration.",
-    image: "/fight-house.png",
+    image: "/fighthouse.png",
     category: "web",
     technologies: ["WordPress", "WooCommerce", "Google Maps API", "PHP", "JavaScript"],
     demoUrl: "https://fighthouseacademy.com",
@@ -166,6 +166,7 @@ export function ProjectsSection() {
   function ProjectRow({ project, index, featured }: { project: any; index: number; featured?: boolean }) {
     // Alternate direction: even rows image left, odd rows image right
     const isReverse = index % 2 === 1
+    const [isHovering, setIsHovering] = useState(false)
 
     // Check if demo or code is available
     const isDemoAvailable = project.demoUrl !== "#";
@@ -193,9 +194,6 @@ export function ProjectsSection() {
       >
         {/* Floating image, visually separated, always contained */}
         <div className="relative flex-shrink-0 w-full md:w-[340px] min-h-[180px] sm:min-h-[220px] md:min-h-[260px] flex items-center justify-center z-30">
-          {/* Image section - only shown for featured projects */}
-          {featured && (
-            <>
           {/* Glow and shadow layers */}
           <motion.div
             className="absolute left-1/2 -translate-x-1/2 top-8 w-72 h-72 rounded-2xl shadow-2xl bg-gradient-to-br from-primary/10 via-blue-400/10 to-cyan-400/10 blur-2xl opacity-60 pointer-events-none"
@@ -204,55 +202,51 @@ export function ProjectsSection() {
           />
 
           {/* Image container with overflow-hidden and max-w */}
-          <motion.div
-            className="relative w-48 h-32 sm:w-60 sm:h-40 md:w-72 md:h-48 rounded-2xl shadow-xl border-4 border-white/40 dark:border-background/40 overflow-hidden z-20 bg-background"
-            style={{ willChange: "transform" }}
-            whileHover={{
-              y: -14,
-              scale: 1.07,
-              rotate: isReverse ? 4 : -4,
-              boxShadow: "0 32px 64px 0 rgba(139,92,246,0.20)",
-            }}
-            transition={{ type: "spring", stiffness: 120, damping: 18 }}
-          >
-            <Image
-              src={project.image}
-              alt={project.title}
-              fill
-              className="object-contain"  // Changed from object-cover to object-contain
-              sizes="(max-width: 768px) 100vw, 340px"
-              priority={index === 0}
-              style={{
-                zIndex: 20,
-                transition: "transform 0.5s cubic-bezier(.4,2,.3,1)",
-              }}
-            />
-            {/* Overlay shine effect */}
+          {featured && (
             <motion.div
-              className="absolute inset-0 pointer-events-none"
-              initial={{ opacity: 0.12 }}
-              whileHover={{ opacity: 0.22 }}
-              transition={{ duration: 0.5 }}
-              style={{
-                background:
-                  "linear-gradient(120deg,rgba(139,92,246,0.10) 0%,rgba(59,130,246,0.08) 100%)",
-                zIndex: 25,
+              className="relative w-48 h-32 sm:w-60 sm:h-40 md:w-72 md:h-48 rounded-2xl shadow-xl border-4 border-white/40 dark:border-background/40 overflow-hidden z-20"
+              style={{ willChange: "transform" }}
+              animate={isHovering ? {
+                y: -14,
+                scale: 1.07,
+                rotate: isReverse ? 4 : -4,
+              } : {
+                y: 0,
+                scale: 1,
+                rotate: 0,
               }}
-            />
-          </motion.div>
-          {/* Floating accent elements */}
-          <motion.div
-            className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-36 h-8 bg-gradient-to-r from-primary/30 via-blue-400/20 to-cyan-400/20 blur-2xl rounded-full z-10"
-            animate={{ scaleX: [1, 1.1, 1], opacity: [0.5, 0.7, 0.5] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute top-4 right-4 w-8 h-8 rounded-full bg-primary/20 blur-lg z-10"
-            animate={{ y: [0, -10, 0], opacity: [0.3, 0.6, 0.3] }}
-            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-          />
-            </>
+              transition={{ type: "spring", stiffness: 120, damping: 18 }}
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
+            >
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 340px"
+                priority={index === 0}
+                style={{
+                  zIndex: 20,
+                  transition: "transform 0.5s cubic-bezier(.4,2,.3,1)",
+                }}
+              />
+              {/* Overlay shine effect */}
+              <motion.div
+                className="absolute inset-0 pointer-events-none"
+                initial={{ opacity: 0.12 }}
+                whileHover={{ opacity: 0.22 }}
+                transition={{ duration: 0.5 }}
+                style={{
+                  background:
+                    "linear-gradient(120deg,rgba(139,92,246,0.10) 0%,rgba(59,130,246,0.08) 100%)",
+                  zIndex: 25,
+                }}
+              />
+            </motion.div>
           )}
+
+          {/* Non-featured projects - Sparkles animation */}
           {!featured && (
             <motion.div
               className="flex items-center justify-center"
@@ -275,6 +269,17 @@ export function ProjectsSection() {
               </motion.div>
             </motion.div>
           )}
+          {/* Floating accent elements */}
+          <motion.div
+            className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-36 h-8 bg-gradient-to-r from-primary/30 via-blue-400/20 to-cyan-400/20 blur-2xl rounded-full z-10"
+            animate={{ scaleX: [1, 1.1, 1], opacity: [0.5, 0.7, 0.5] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute top-4 right-4 w-8 h-8 rounded-full bg-primary/20 blur-lg z-10"
+            animate={{ y: [0, -10, 0], opacity: [0.3, 0.6, 0.3] }}
+            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+          />
           {featured && (
             <motion.div
               className="absolute top-4 left-4 z-30"
