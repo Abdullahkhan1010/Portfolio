@@ -39,7 +39,7 @@ export const viewport = {
 }
 
 export const metadata: Metadata = {
-  title: "Talha. | Portfolio",
+  title: "Abdullah Khan | Full Stack Developer",
   description: "Frontend Developer & Flutter Developer specializing in creating engaging digital experiences",
   icons: {
     icon: [
