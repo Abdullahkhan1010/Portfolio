@@ -144,10 +144,6 @@ Have questions, feedback, or want to collaborate? Reach out:
 - **Email**: [abdullah.khan1010@gmail.com](mailto:abdullah.khan1010@gmail.com)
 - **Portfolio**: [abdullahkhan.dev](https://abdullahkhan-portfolio.com) *(Update with your domain)*
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ---
 
 <div align="center">
