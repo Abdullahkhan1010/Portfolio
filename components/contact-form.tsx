@@ -16,7 +16,8 @@ export function ContactForm() {
     name: "",
     email: "",
     subject: "",
-    message: ""
+    message: "",
+    botcheck: "" // Honeypot field
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -26,6 +27,12 @@ export function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Check honeypot field - if filled, it's a bot
+    if (formData.botcheck) {
+      console.log("Bot detected")
+      return
+    }
     
     // Basic validation
     if (!formData.name || !formData.email || !formData.message) {
@@ -53,6 +60,7 @@ export function ContactForm() {
           email: formData.email,
           subject: formData.subject || "New Contact Form Submission",
           message: formData.message,
+          botcheck: formData.botcheck, // Honeypot field for spam detection
           from_website: window.location.hostname,
           form_subject: formData.subject || "Contact Form Submission"
         }),
@@ -174,6 +182,17 @@ export function ContactForm() {
               className="h-9 sm:h-10 text-xs sm:text-sm"
             />
           </div>
+
+          {/* Honeypot field - hidden from users, but bots will fill it */}
+          <input
+            type="text"
+            name="botcheck"
+            value={formData.botcheck}
+            onChange={handleChange}
+            style={{ display: 'none' }}
+            tabIndex={-1}
+            autoComplete="off"
+          />
 
           <div>
             <label htmlFor="message" className="block text-xs font-medium text-muted-foreground mb-1 sm:mb-2">
