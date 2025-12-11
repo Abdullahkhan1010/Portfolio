@@ -379,7 +379,7 @@ export function Navbar() {
                   className="nav-resume-btn"
                   asChild
                 >
-                  <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer" suppressHydrationWarning>
+                  <Link href="https://drive.google.com/file/d/1T26Kq9ct7FUtCH04QM5JGDwv2-tw_1As/view?usp=sharing" target="_blank" rel="noopener noreferrer" suppressHydrationWarning>
                     <span className="relative z-10">Resume</span>
                     <motion.div
                       animate={{ x: [0, 3, 0] }}
@@ -553,7 +553,7 @@ export function Navbar() {
                       className="w-full nav-mobile-resume group"
                       asChild
                     >
-                      <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer" suppressHydrationWarning>
+                      <Link href="https://drive.google.com/file/d/1T26Kq9ct7FUtCH04QM5JGDwv2-tw_1As/view?usp=sharing" target="_blank" rel="noopener noreferrer" suppressHydrationWarning>
                         <span className="relative z-10">View Resume</span>
                         <motion.div
                           className="absolute inset-0 bg-gradient-to-r from-primary/80 via-blue-600/80 to-primary/80 rounded-lg opacity-90 -z-0 optimize-animation"

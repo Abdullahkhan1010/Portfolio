@@ -70,12 +70,6 @@ const nextConfig = {
     ];
   },
   
-  // Optimize CSS
-  optimizeFonts: true,
-  
-  // Reduce bundle size
-  swcMinify: true,
-  
   // Enable React strict mode for better development
   reactStrictMode: true,
   
