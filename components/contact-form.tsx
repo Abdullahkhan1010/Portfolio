@@ -85,7 +85,8 @@ export function ContactForm() {
           name: "",
           email: "",
           subject: "",
-          message: ""
+          message: "",
+          botcheck: ""
         });
       } else {
         throw new Error(result.message || 'Something went wrong');
