@@ -151,14 +151,15 @@ export function ProjectsSection() {
     )
   }, [])
 
-  // Animation variants
+  // Animation variants - optimized for mobile
+  const isMobileView = typeof window !== 'undefined' && window.innerWidth < 768
   const sectionVariants = {
     hidden: { opacity: 0, y: 60 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.7, when: "beforeChildren", staggerChildren: 0.12 } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.7, when: "beforeChildren", staggerChildren: isMobileView ? 0.08 : 0.12 } }
   }
   const cardVariants = {
     hidden: { opacity: 0, y: 60, scale: 0.96 },
-    visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 80, damping: 18 } },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: isMobileView ? 100 : 80, damping: isMobileView ? 25 : 18 } },
     exit: { opacity: 0, y: 60, scale: 0.96, transition: { duration: 0.3 } }
   }
 
@@ -256,13 +257,13 @@ export function ProjectsSection() {
             >
               <motion.div
                 className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full border-2 border-primary/30 dark:border-primary/40 flex items-center justify-center"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                animate={typeof window !== 'undefined' && window.innerWidth >= 768 ? { rotate: 360 } : {}}
+                transition={typeof window !== 'undefined' && window.innerWidth >= 768 ? { duration: 20, repeat: Infinity, ease: "linear" } : {}}
               >
                 <motion.div
                   className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-primary/20 via-blue-500/15 to-cyan-400/10 dark:from-primary/25 dark:via-blue-500/20 dark:to-cyan-400/15 flex items-center justify-center"
-                  animate={{ scale: [1, 1.1, 1] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                  animate={{ scale: [1, 1.08, 1] }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
                 >
                   <Sparkles className="w-8 h-8 sm:w-10 sm:h-10 text-primary/60 dark:text-primary/70" />
                 </motion.div>

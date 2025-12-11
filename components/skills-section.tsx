@@ -159,11 +159,13 @@ export function SkillsSection() {
   const [skillElements, setSkillElements] = useState<React.ReactElement[]>([])
   const { theme } = useTheme() // Get the current theme
   const [isLightMode, setIsLightMode] = useState(false)
+  const [windowWidth, setWindowWidth] = useState(0)
   
   // Only run calculations after component is mounted on client
   useEffect(() => {
     setIsMounted(true)
     setIsLightMode(theme === 'light')
+    setWindowWidth(typeof window !== 'undefined' ? window.innerWidth : 0)
   }, [theme]);
   
   // Add a useEffect to handle window resize for responsive orbit
@@ -172,6 +174,7 @@ export function SkillsSection() {
     
     // Function to handle responsive sizing
     const handleResize = () => {
+      setWindowWidth(window.innerWidth)
       const skillElements = document.querySelectorAll('[style*="translate(-50%, -50%) translate"]');
       
       skillElements.forEach((element) => {
@@ -201,10 +204,11 @@ export function SkillsSection() {
     };
   }, [isMounted]);
   
-  // Memoize stars for performance (reduce to 60)
+  // Memoize stars for performance (reduce to 30 on mobile, 60 on desktop)
   const stars = useMemo(() => {
     if (!isMounted) return null
-    return Array.from({ length: 60 }).map((_, i) => {
+    const starCount = windowWidth < 768 ? 30 : 60
+    return Array.from({ length: starCount }).map((_, i) => {
       const size = Math.random() * 2 + 1
       const x = Math.random() * 100
       const y = Math.random() * 100
@@ -300,8 +304,8 @@ export function SkillsSection() {
             />
           </>
         )}
-        {/* More shooting stars for dynamic effect */}
-        {isMounted && Array.from({ length: 7 }).map((_, i) => (
+        {/* More shooting stars for dynamic effect - disabled on mobile */}
+        {isMounted && windowWidth >= 768 && Array.from({ length: 7 }).map((_, i) => (
           <motion.div
             key={`shooting-star-${i}`}
             className="shooting-star absolute"
@@ -389,7 +393,7 @@ export function SkillsSection() {
               maxWidth: "500px",
             }}
           >
-            {/* Orbit ring for visual reference - perfectly behind skills */}
+            {/* Orbit ring for visual reference - perfectly behind skills - disable animation on mobile */}
             <motion.div
               className="absolute pointer-events-none"
               style={{
@@ -399,8 +403,8 @@ export function SkillsSection() {
                 height: "340px",
                 zIndex: 10, // should be below skills (z-20 for skills, z-10 for ring)
               }}
-              animate={{ rotate: [0, 360] }}
-              transition={{ duration: 64, repeat: Infinity, ease: "linear" }}
+              animate={windowWidth >= 768 ? { rotate: [0, 360] } : {}}
+              transition={windowWidth >= 768 ? { duration: 64, repeat: Infinity, ease: "linear" } : {}}
             >
               <div className={`w-full h-full rounded-full border ${isLightMode ? 'border-primary/30' : 'border-primary/20'}`} />
             </motion.div>
@@ -425,7 +429,7 @@ export function SkillsSection() {
                   ? "0 0 40px 10px rgba(139,92,246,0.2)"
                   : "0 0 40px 10px rgba(139,92,246,0.13)",
               }}
-              animate={{
+              animate={windowWidth >= 768 ? {
                 boxShadow: isLightMode
                   ? [
                     "0 0 20px rgba(147, 51, 234, 0.4)",
@@ -437,8 +441,8 @@ export function SkillsSection() {
                     "0 0 40px rgba(139, 92, 246, 0.5)",
                     "0 0 20px rgba(139, 92, 246, 0.3)",
                   ],
-              }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              } : {}}
+              transition={windowWidth >= 768 ? { duration: 4, repeat: Infinity, ease: "easeInOut" } : {}}
             >
               {activeSkill ? (
                 <motion.div
@@ -507,12 +511,12 @@ export function SkillsSection() {
                 })}
             </motion.div>
 
-            {/* Skills orbiting smoothly around the center */}
+            {/* Skills orbiting smoothly around the center - disable on mobile */}
             {isMounted && (
               <motion.div
                 className="absolute inset-0 w-full h-full pointer-events-none optimize-animation"
-                animate={{ rotate: [0, 360] }}
-                transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
+                animate={windowWidth >= 768 ? { rotate: [0, 360] } : {}}
+                transition={windowWidth >= 768 ? { duration: 32, repeat: Infinity, ease: "linear" } : {}}
               >
                 {skills.map((skill, index) => {
                   const totalSkills = skills.length

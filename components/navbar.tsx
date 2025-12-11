@@ -458,27 +458,27 @@ export function Navbar() {
                     <motion.div 
                       className="relative z-10 flex items-center justify-center optimize-animation"
                       animate={{ 
-                        scale: [1, 1.1, 1], 
+                        scale: [1, 1.05, 1], 
                       }}
                       transition={{ 
-                        duration: 3, 
+                        duration: 4, 
                         repeat: Infinity,
                         ease: "easeInOut" 
                       }}
                     >
-                      <span className="nav-logo-text">T</span>
+                      <span className="nav-logo-text">A</span>
                       <motion.div 
                         className="absolute inset-0 bg-primary/30 rounded-full optimize-animation"
                         animate={{ 
-                          scale: [0.8, 1.2, 0.8], 
-                          opacity: [0.2, 0.4, 0.2] 
+                          scale: [0.9, 1.1, 0.9], 
+                          opacity: [0.15, 0.3, 0.15] 
                         }}
                         transition={{ 
-                          duration: 3, 
+                          duration: 4, 
                           repeat: Infinity,
                           ease: "easeInOut" 
                         }}
-                        style={{ filter: "blur(8px)" }}
+                        style={{ filter: "blur(6px)" }}
                       />
                     </motion.div>
                   </div>
