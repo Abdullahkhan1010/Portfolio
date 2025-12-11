@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, useState, useEffect } from "react"
 import { motion, useInView } from "framer-motion"
 import { Mail, MapPin, Phone, Github, Linkedin, Instagram } from "lucide-react"
 import { ContactForm } from "@/components/contact-form"
@@ -8,6 +8,14 @@ import { ContactForm } from "@/components/contact-form"
 export function ContactSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const contactInfo = [
     {
@@ -84,9 +92,9 @@ export function ContactSection() {
 
         <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+            animate={isMobile ? { opacity: 1, x: 0 } : (isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 })}
+            transition={isMobile ? {} : { duration: 0.5, delay: 0.2 }}
           >
             <div className="bg-card/70 backdrop-blur-md rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 shadow-2xl h-full border border-primary/10">
               <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-6">Contact Information</h3>
@@ -113,8 +121,8 @@ export function ContactSection() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-primary/20 to-blue-500/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors shadow-lg relative group"
-                      whileHover={{ scale: 1.15, rotate: 8 }}
-                      whileTap={{ scale: 0.95 }}
+                      whileHover={isMobile ? {} : { scale: 1.15, rotate: 8 }}
+                      whileTap={isMobile ? {} : { scale: 0.95 }}
                       title={s.name}
                     >
                       {s.icon}
@@ -129,9 +137,9 @@ export function ContactSection() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+            animate={isMobile ? { opacity: 1, x: 0 } : (isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 })}
+            transition={isMobile ? {} : { duration: 0.5, delay: 0.4 }}
             className="relative"
           >
             <ContactForm />

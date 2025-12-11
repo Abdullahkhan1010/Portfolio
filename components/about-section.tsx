@@ -28,17 +28,27 @@ export function AboutSection() {
 
   // Client-side only state
   const [isMounted, setIsMounted] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   // Generate particles on client-side only
   const [particles, setParticles] = useState<Particle[]>([])
 
   useEffect(() => {
     setIsMounted(true)
+    
+    // Check if mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
   useEffect(() => {
-    // Only generate particles on the client side to avoid hydration mismatch
-    if (typeof window !== 'undefined') {
+    // Only generate particles on the client side and on desktop
+    if (typeof window !== 'undefined' && !isMobile) {
       setParticles(
         Array.from({ length: 5 }).map((_, i) => ({
           id: `particle-${i}`,
@@ -50,13 +60,13 @@ export function AboutSection() {
         }))
       )
     }
-  }, [isMounted])
+  }, [isMounted, isMobile])
 
   useEffect(() => {
-    if (isInView && isMounted) {
+    if (isInView && isMounted && !isMobile) {
       controls.start("visible")
 
-      // Force animation of quadrants
+      // Force animation of quadrants on desktop only
       const timeout = setTimeout(() => {
         const quadrants = document.querySelectorAll('.grid > div');
         quadrants.forEach(q => {
@@ -66,13 +76,13 @@ export function AboutSection() {
 
       return () => clearTimeout(timeout)
     }
-  }, [isInView, controls, isMounted])
+  }, [isInView, controls, isMounted, isMobile])
 
-  // Enhanced scroll-based reveal animation
+  // Enhanced scroll-based reveal animation - Desktop only
   const [scrollProgress, setScrollProgress] = useState(0);
   
   useEffect(() => {
-    if (!isMounted) return;
+    if (!isMounted || isMobile) return;
 
     let ticking = false;
     const handleScroll = () => {
@@ -98,10 +108,10 @@ export function AboutSection() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isMounted]);
+  }, [isMounted, isMobile]);
 
   useEffect(() => {
-    if (!isMounted) return;
+    if (!isMounted || isMobile) return;
     
     const handleMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;
@@ -132,7 +142,7 @@ export function AboutSection() {
     
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [isMounted, parallaxY]);
+  }, [isMounted, parallaxY, isMobile]);
 
   useEffect(() => {
     if (isMounted) {
@@ -296,7 +306,7 @@ export function AboutSection() {
           <rect width="100" height="100" fill="url(#grid)" />
         </svg>
         
-        {isMounted && particles.map((particle) => (
+        {isMounted && !isMobile && particles.map((particle) => (
           <motion.div
             key={particle.id}
             className="absolute rounded-full bg-primary/30 dark:bg-primary/20"
@@ -321,15 +331,15 @@ export function AboutSection() {
 
       <motion.div 
         className="container mx-auto px-4 md:px-6 relative z-10"
-        style={{
+        style={isMobile ? {} : {
           transform: `translateY(${scrollProgress * 20}px)`,
           opacity: 0.8 + (scrollProgress * 0.2)
         }}
       >
         <motion.div
           className="flex flex-col items-center text-center mb-16"
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { 
+          initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          animate={isMobile ? { opacity: 1, y: 0 } : (isInView ? { 
             opacity: 1, 
             y: 0,
             transition: { 
@@ -337,12 +347,12 @@ export function AboutSection() {
               ease: [0.25, 0.46, 0.45, 0.94],
               staggerChildren: 0.2
             }
-          } : { opacity: 0, y: 50 }}
+          } : { opacity: 0, y: 50 })}
         >
           <motion.div 
             className="inline-flex items-center justify-center gap-2 px-3 py-1 mb-3 rounded-full bg-primary/10 backdrop-blur-sm border border-primary/20"
-            initial={{ opacity: 0, scale: 0.8, y: 20 }}
-            animate={isInView ? { 
+            initial={isMobile ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.8, y: 20 }}
+            animate={isMobile ? { opacity: 1, scale: 1, y: 0 } : (isInView ? { 
               opacity: 1, 
               scale: 1, 
               y: 0,
@@ -351,19 +361,19 @@ export function AboutSection() {
                 delay: 0.2,
                 ease: [0.25, 0.46, 0.45, 0.94]
               }
-            } : { opacity: 0, scale: 0.8, y: 20 }}
-            whileHover={{ 
+            } : { opacity: 0, scale: 0.8, y: 20 })}
+            whileHover={isMobile ? {} : { 
               scale: 1.05, 
               backgroundColor: "rgba(14, 165, 233, 0.15)",
               transition: { duration: 0.3 }
             }}
           >
             <motion.div
-              animate={{ 
+              animate={isMobile ? {} : { 
                 rotate: [0, 360],
                 scale: [1, 1.2, 1]
               }}
-              transition={{ 
+              transition={isMobile ? {} : { 
                 duration: 2, 
                 repeat: Infinity,
                 ease: "easeInOut"
@@ -376,8 +386,8 @@ export function AboutSection() {
           
           <motion.h2 
             className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 leading-tight"
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { 
+            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            animate={isMobile ? { opacity: 1, y: 0 } : (isInView ? { 
               opacity: 1, 
               y: 0,
               transition: { 
@@ -385,12 +395,12 @@ export function AboutSection() {
                 delay: 0.4,
                 ease: [0.25, 0.46, 0.45, 0.94]
               }
-            } : { opacity: 0, y: 30 }}
+            } : { opacity: 0, y: 30 })}
           >
             Creative <motion.span 
               className="relative inline-block"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={isInView ? { 
+              initial={isMobile ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+              animate={isMobile ? { opacity: 1, scale: 1 } : (isInView ? { 
                 opacity: 1, 
                 scale: 1,
                 transition: { 
@@ -398,11 +408,11 @@ export function AboutSection() {
                   delay: 0.6,
                   ease: [0.25, 0.46, 0.45, 0.94]
                 }
-              } : { opacity: 0, scale: 0.9 }}
+              } : { opacity: 0, scale: 0.9 })}
             >
               <motion.span 
                 className="relative z-10 text-primary"
-                animate={{ 
+                animate={isMobile ? {} : { 
                   color: ['hsl(199, 89%, 48%)', 'hsl(199, 89%, 42%)', 'hsl(199, 89%, 48%)'],
                   textShadow: [
                     '0 0 0px rgba(14, 165, 233, 0)',
@@ -410,19 +420,19 @@ export function AboutSection() {
                     '0 0 0px rgba(14, 165, 233, 0)'
                   ]
                 }}
-                transition={{ duration: 3, repeat: Infinity }}
+                transition={isMobile ? {} : { duration: 3, repeat: Infinity }}
               >Developer</motion.span>
               <motion.span 
                 className="absolute -bottom-1.5 left-0 right-0 h-3 bg-primary/20 rounded-full -z-10"
-                initial={{ width: 0 }}
-                animate={isInView ? { 
+                initial={isMobile ? { width: "100%" } : { width: 0 }}
+                animate={isMobile ? { width: "100%" } : (isInView ? { 
                   width: "100%",
                   transition: { 
                     duration: 0.8, 
                     delay: 0.7,
                     ease: [0.25, 0.46, 0.45, 0.94]
                   }
-                } : { width: 0 }}
+                } : { width: 0 })}
               ></motion.span>
             </motion.span> with a
             <br /> passion for intuitive design
@@ -430,8 +440,8 @@ export function AboutSection() {
           
           <motion.p 
             className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { 
+            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            animate={isMobile ? { opacity: 1, y: 0 } : (isInView ? { 
               opacity: 1, 
               y: 0,
               transition: { 
@@ -439,7 +449,7 @@ export function AboutSection() {
                 delay: 0.8,
                 ease: [0.25, 0.46, 0.45, 0.94]
               }
-            } : { opacity: 0, y: 20 }}
+            } : { opacity: 0, y: 20 })}
           >
             I combine technical expertise with creative problem-solving to build applications 
             that not only function flawlessly but also provide exceptional user experiences.
@@ -449,8 +459,8 @@ export function AboutSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center" ref={ref}>
           <motion.div
             className="lg:col-span-6"
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { 
+            initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+            animate={isMobile ? { opacity: 1, x: 0 } : (isInView ? { 
               opacity: 1, 
               x: 0,
               transition: { 
@@ -458,7 +468,7 @@ export function AboutSection() {
                 delay: 0.3,
                 ease: [0.25, 0.46, 0.45, 0.94]
               }
-            } : { opacity: 0, x: -50 }}
+            } : { opacity: 0, x: -50 })}
           >
             <div className="relative aspect-square max-w-lg mx-auto">
               <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 gap-3">
@@ -466,15 +476,7 @@ export function AboutSection() {
                   <div key={index} className="quadrant-wrapper">
                     <motion.div 
                       className="quadrant relative rounded-xl overflow-hidden border border-white/10 dark:border-white/20 bg-white/5 dark:bg-slate-900/40 backdrop-blur-sm transition-all duration-300 h-full light:shadow-[0_0_0_1px_rgba(14,165,233,0.25),0_6px_18px_-4px_rgba(14,165,233,0.25),0_0_28px_-4px_rgba(6,182,212,0.35)] light:[background:linear-gradient(135deg,rgba(255,255,255,0.65)_0%,rgba(240,249,255,0.9)_100%)]"
-                      initial={{ 
-                        opacity: 0, 
-                        scale: 0.8, 
-                        y: 30,
-                        rotateX: 15,
-                        rotateY: 5,
-                        borderColor: "rgba(255, 255, 255, 0.1)"
-                      }}
-                      animate={isInView ? { 
+                      initial={isMobile ? { 
                         opacity: 1, 
                         scale: 1, 
                         y: 0,
@@ -489,7 +491,29 @@ export function AboutSection() {
                         rotateY: 5,
                         borderColor: "rgba(255, 255, 255, 0.1)"
                       }}
-                      transition={{ 
+                      animate={isMobile ? { 
+                        opacity: 1, 
+                        scale: 1, 
+                        y: 0,
+                        rotateX: 0,
+                        rotateY: 0,
+                        borderColor: "rgba(255, 255, 255, 0.1)"
+                      } : (isInView ? { 
+                        opacity: 1, 
+                        scale: 1, 
+                        y: 0,
+                        rotateX: 0,
+                        rotateY: 0,
+                        borderColor: "rgba(255, 255, 255, 0.1)"
+                      } : { 
+                        opacity: 0, 
+                        scale: 0.8, 
+                        y: 30,
+                        rotateX: 15,
+                        rotateY: 5,
+                        borderColor: "rgba(255, 255, 255, 0.1)"
+                      })}
+                      transition={isMobile ? {} : { 
                         duration: 0.8, 
                         delay: 0.4 + (0.1 * index),
                         ease: [0.25, 0.46, 0.45, 0.94],
@@ -497,7 +521,7 @@ export function AboutSection() {
                         stiffness: 100,
                         damping: 15
                       }}
-                      whileHover={{ 
+                      whileHover={isMobile ? {} : { 
                         y: -8, 
                         scale: 1.05,
                         rotateX: -5,
@@ -516,9 +540,9 @@ export function AboutSection() {
                       {/* Subtle gradient overlay */}
                       <motion.div 
                         className="absolute inset-0 opacity-40"
-                        initial={{ opacity: 0 }}
-                        animate={isInView ? { opacity: 0.4 } : { opacity: 0 }}
-                        transition={{ duration: 1, delay: 0.2 * (index + 1) }}
+                        initial={isMobile ? { opacity: 0.4 } : { opacity: 0 }}
+                        animate={isMobile ? { opacity: 0.4 } : (isInView ? { opacity: 0.4 } : { opacity: 0 })}
+                        transition={isMobile ? {} : { duration: 1, delay: 0.2 * (index + 1) }}
                         style={{
                           background: `linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, transparent 50%, rgba(6, 182, 212, 0.1) 100%)`
                         }}
@@ -567,12 +591,12 @@ export function AboutSection() {
                         {svgIllustrations[index]}
                       </motion.div>
                       
-                      <div className="relative z-10 p-6 h-full flex flex-col justify-between backdrop-blur-[2px] rounded-xl transition-all duration-300 hover:backdrop-blur-none">
-                        <div className="flex items-center gap-3 mb-3">
-                          <div className={`p-2 rounded-lg ${quadrant.iconBg} ${quadrant.iconColor} shadow-sm dark:shadow-lg`}>
+                      <div className="relative z-10 p-3 sm:p-4 md:p-6 h-full flex flex-col justify-between backdrop-blur-[2px] rounded-xl transition-all duration-300 hover:backdrop-blur-none">
+                        <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+                          <div className={`p-1.5 sm:p-2 rounded-lg ${quadrant.iconBg} ${quadrant.iconColor} shadow-sm dark:shadow-lg`}>
                             {quadrant.icon}
                           </div>
-                          <h3 className="text-base font-semibold text-foreground dark:text-slate-100">{quadrant.title}</h3>
+                          <h3 className="text-sm sm:text-base font-semibold text-foreground dark:text-slate-100">{quadrant.title}</h3>
                         </div>
                         
                         {quadrant.skills ? (
@@ -580,8 +604,8 @@ export function AboutSection() {
                             {quadrant.skills.map((skill) => (
                               <motion.span 
                                 key={skill} 
-                                className="px-2 py-1 text-xs font-medium rounded-full bg-white/10 dark:bg-slate-700/40 backdrop-blur-sm border border-white/5 dark:border-slate-600/30 transition-all duration-200 light:bg-gradient-to-r light:from-cyan-50/70 light:to-sky-50/70 light:text-slate-700 light:border-cyan-200/60 light:hover:from-cyan-100/80 light:hover:to-sky-100/80 light:shadow-[0_0_0_1px_rgba(14,165,233,0.25),0_2px_6px_-1px_rgba(14,165,233,0.25)]"
-                                whileHover={{ 
+                                className="px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs font-medium rounded-full bg-white/10 dark:bg-slate-700/40 backdrop-blur-sm border border-white/5 dark:border-slate-600/30 transition-all duration-200 light:bg-gradient-to-r light:from-cyan-50/70 light:to-sky-50/70 light:text-slate-700 light:border-cyan-200/60 light:hover:from-cyan-100/80 light:hover:to-sky-100/80 light:shadow-[0_0_0_1px_rgba(14,165,233,0.25),0_2px_6px_-1px_rgba(14,165,233,0.25)] whitespace-nowrap"
+                                whileHover={isMobile ? {} : { 
                                   scale: 1.05, 
                                   backgroundColor: "rgba(14, 165, 233, 0.15)",
                                   color: "hsl(199, 89%, 48%)",

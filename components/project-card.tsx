@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight, Github, ExternalLink } from "lucide-react"
@@ -28,6 +28,14 @@ export function ProjectCard({
   featured = false 
 }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   return (
     <motion.div
@@ -36,8 +44,8 @@ export function ProjectCard({
       }`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      whileHover={{ y: -8 }}
-      transition={{ duration: 0.3 }}
+      whileHover={isMobile ? {} : { y: -8 }}
+      transition={isMobile ? {} : { duration: 0.3 }}
     >
       <div className="absolute inset-0 z-10 bg-gradient-to-t from-background via-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 

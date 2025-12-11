@@ -64,6 +64,21 @@
   }
 }
 
+/* Disable all animations and transitions on mobile (except theme switching) */
+@media (max-width: 767px) {
+  *:not([class*="theme"]):not(.theme-transition):not([data-theme-transition]) {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  /* Re-enable minimal transitions for basic interactions */
+  button, a, input, textarea, select {
+    transition: opacity 0.15s ease, background-color 0.15s ease !important;
+  }
+}
+
 /* Prevent horizontal scrolling */
 html, body {
   overflow-x: hidden;
@@ -121,18 +136,43 @@ section#home, div#home {
   @apply bg-primary/50;
 }
 
-/* Animations */
+/* Animations - Desktop only by default */
 @keyframes float {
    0%, 100% { transform: translateY(0); }
    50% { transform: translateY(-10px); }
 }
 
-.animate-float {
-  animation: float 3s ease-in-out infinite;
+/* Disable all animations on mobile (below md breakpoint) */
+@media (max-width: 767px) {
+  .animate-float,
+  .float,
+  .animate-pulse-slow,
+  .animate-shine,
+  .animate-shimmer,
+  .animate-spin-slow,
+  .animate-marquee,
+  .reveal,
+  .animated-underline::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  /* Disable transform animations on mobile */
+  .reveal {
+    transform: none !important;
+    opacity: 1 !important;
+  }
 }
 
-.float {
-  animation: float 5s ease-in-out infinite;
+/* Enable animations on desktop (md breakpoint and above) */
+@media (min-width: 768px) {
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .float {
+    animation: float 5s ease-in-out infinite;
+  }
 }
 
 @keyframes pulse-slow {
@@ -145,8 +185,10 @@ section#home, div#home {
   }
 }
 
-.animate-pulse-slow {
-  animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+@media (min-width: 768px) {
+  .animate-pulse-slow {
+    animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
 }
 
 /* Define new animation classes for profile picture */
@@ -159,21 +201,25 @@ section#home, div#home {
   }
 }
 
-.animate-shine {
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(14, 165, 233, 0.2),
-    transparent
-  );
-  background-size: 200% 100%;
-  animation: shine 3s infinite;
+@media (min-width: 768px) {
+  .animate-shine {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(14, 165, 233, 0.2),
+      transparent
+    );
+    background-size: 200% 100%;
+    animation: shine 3s infinite;
+  }
 }
 
 /* Improved shimmer animation */
-.animate-shimmer {
-  animation: shimmer 4s infinite linear;
-  background-size: 200% 100%;
+@media (min-width: 768px) {
+  .animate-shimmer {
+    animation: shimmer 4s infinite linear;
+    background-size: 200% 100%;
+  }
 }
 
 /* For the profile picture orbital rings */
@@ -186,8 +232,10 @@ section#home, div#home {
   }
 }
 
-.animate-spin-slow {
-  animation: spin 20s linear infinite;
+@media (min-width: 768px) {
+  .animate-spin-slow {
+    animation: spin 20s linear infinite;
+  }
 }
 
 /* Gradient text */
@@ -200,17 +248,33 @@ section#home, div#home {
   @apply bg-white/10 backdrop-blur-lg dark:bg-black/20;
 }
 
-/* Reveal animations */
-.reveal {
-  position: relative;
-  transform: translateY(50px);
-  opacity: 0;
-  transition: all 1s ease;
+/* Reveal animations - Desktop only */
+@media (min-width: 768px) {
+  .reveal {
+    position: relative;
+    transform: translateY(50px);
+    opacity: 0;
+    transition: all 1s ease;
+  }
+
+  .reveal.active {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
-.reveal.active {
-  transform: translateY(0);
-  opacity: 1;
+/* Mobile: No reveal animation */
+@media (max-width: 767px) {
+  .reveal {
+    position: relative;
+    transform: none;
+    opacity: 1;
+  }
+  
+  .reveal.active {
+    transform: none;
+    opacity: 1;
+  }
 }
 
 /* Custom cursor */
@@ -248,27 +312,29 @@ section#home, div#home {
   pointer-events: none;
 }
 
-/* Animated underline */
+/* Animated underline - Desktop only */
 .animated-underline {
   position: relative;
 }
 
-.animated-underline::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: -2px;
-  left: 0;
-  @apply bg-primary;
-  transition: width 0.3s ease;
+@media (min-width: 768px) {
+  .animated-underline::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    @apply bg-primary;
+    transition: width 0.3s ease;
+  }
+
+  .animated-underline:hover::after {
+    width: 100%;
+  }
 }
 
-.animated-underline:hover::after {
-  width: 100%;
-}
-
-/* Marquee animation */
+/* Marquee animation - Desktop only */
 @keyframes marquee {
   0% {
     transform: translateX(0);
@@ -278,8 +344,10 @@ section#home, div#home {
   }
 }
 
-.animate-marquee {
-  animation: marquee 25s linear infinite;
+@media (min-width: 768px) {
+  .animate-marquee {
+    animation: marquee 25s linear infinite;
+  }
 }
 
 /* Blur effect for cards */

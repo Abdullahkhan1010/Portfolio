@@ -10,7 +10,6 @@ import { useModeAnimation, ThemeAnimationType } from "react-theme-switch-animati
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeLink, setActiveLink] = useState("#home")
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
@@ -35,48 +34,9 @@ export function Navbar() {
     }
   })
 
-  // Theme animation hook for mobile
-  const { ref: mobileThemeRef, toggleSwitchTheme: toggleMobileTheme } = useModeAnimation({
-    duration: 700,
-    easing: "ease-in-out", 
-    animationType: ThemeAnimationType.BLUR_CIRCLE,
-    blurAmount: 2,
-    isDarkMode: theme === "dark",
-    onDarkModeChange: (isDark) => {
-      setTheme(isDark ? "dark" : "light")
-    }
-  })
-
   useEffect(() => {
     setMounted(true)
   }, [])
-
-  // Prevent body scroll when mobile menu is open (more robust)
-  useEffect(() => {
-    try {
-      if (isMobileMenuOpen) {
-        document.body.style.overflow = "hidden"
-        document.body.style.position = "fixed"
-        document.body.style.width = "100%"
-      } else {
-        document.body.style.overflow = ""
-        document.body.style.position = ""
-        document.body.style.width = ""
-      }
-    } catch (error) {
-      console.warn('Error managing body scroll:', error);
-    }
-    
-    return () => {
-      try {
-        document.body.style.overflow = ""
-        document.body.style.position = ""
-        document.body.style.width = ""
-      } catch (error) {
-        console.warn('Error resetting body scroll:', error);
-      }
-    }
-  }, [isMobileMenuOpen])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -153,10 +113,6 @@ export function Navbar() {
     await toggleSwitchTheme()
   }
 
-  const toggleMobileThemeHandler = async () => {
-    await toggleMobileTheme()
-  }
-
   const navLinks = [
     { href: "#home", label: "Home" },
     { href: "#about", label: "About" },
@@ -183,7 +139,7 @@ export function Navbar() {
     <>
       <header
         ref={navRef}
-        className={`fixed top-4 left-0 right-0 z-50 w-full transition-transform duration-300 ease-in-out ${navbarVisibilityClass}`}
+        className={`fixed top-4 left-0 right-0 z-50 w-full transition-transform duration-300 ease-in-out ${navbarVisibilityClass} hidden md:block`}
         suppressHydrationWarning
       >
         <div className="modern-navbar mx-auto max-w-full md:max-w-5xl xl:max-w-6xl" suppressHydrationWarning>
@@ -404,188 +360,10 @@ export function Navbar() {
                   </Link>
                 </Button>
               </motion.div>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="nav-menu-trigger optimize-animation md:hidden"
-                onClick={() => setIsMobileMenuOpen(true)}
-                aria-label="Open menu"
-                aria-expanded={isMobileMenuOpen}
-                aria-controls="mobile-menu"
-              >
-                <div className="nav-hamburger">
-                  <motion.span className="nav-hamburger-line optimize-animation" />
-                  <motion.span className="nav-hamburger-line optimize-animation" />
-                  <motion.span className="nav-hamburger-line optimize-animation" />
-                </div>
-              </motion.button>
             </div>
           </div>
         </div>
       </header>
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 optimize-animation"
-              onClick={() => setIsMobileMenuOpen(false)}
-              aria-hidden="true"
-            />
-            <motion.div
-              id="mobile-menu"
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ 
-                type: "spring", 
-                damping: 25, 
-                stiffness: 300 
-              }}
-              className="fixed top-0 right-0 h-full w-[85%] sm:w-[280px] bg-background/95 backdrop-blur-md z-50 nav-mobile-menu optimize-animation"
-              role="dialog"
-              aria-modal="true"
-              aria-label="Mobile navigation"
-            >
-              <div className="nav-mobile-pattern"></div>
-              <div className="p-5 flex flex-col h-full relative z-10">
-                <div className="flex justify-between items-center">
-                  <div className="nav-logo-mobile">
-                    <div className="nav-logo-shine"></div>
-                    <motion.div 
-                      className="relative z-10 flex items-center justify-center optimize-animation"
-                      animate={{ 
-                        scale: [1, 1.05, 1], 
-                      }}
-                      transition={{ 
-                        duration: 4, 
-                        repeat: Infinity,
-                        ease: "easeInOut" 
-                      }}
-                    >
-                      <span className="nav-logo-text">A</span>
-                      <motion.div 
-                        className="absolute inset-0 bg-primary/30 rounded-full optimize-animation"
-                        animate={{ 
-                          scale: [0.9, 1.1, 0.9], 
-                          opacity: [0.15, 0.3, 0.15] 
-                        }}
-                        transition={{ 
-                          duration: 4, 
-                          repeat: Infinity,
-                          ease: "easeInOut" 
-                        }}
-                        style={{ filter: "blur(6px)" }}
-                      />
-                    </motion.div>
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="!border-0 hover:bg-transparent relative group nav-close-btn"
-                    aria-label="Close menu"
-                  >
-                    <motion.div
-                      whileHover={{ rotate: 90 }}
-                      transition={{ type: "spring", stiffness: 200 }}
-                      className="optimize-animation"
-                    >
-                      <X className="h-5 w-5 group-hover:text-primary transition-colors" />
-                    </motion.div>
-                  </Button>
-                </div>
-                <div className="mt-6 sm:mt-10 flex-1">
-                  <nav className="space-y-2.5" aria-label="Mobile navigation">
-                    {navLinks.map((link, idx) => (
-                      <motion.div
-                        key={link.href}
-                        initial={{ x: 50, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        transition={{ 
-                          delay: idx * 0.08, 
-                          type: "spring",
-                          stiffness: 200,
-                          damping: 20
-                        }}
-                        className="optimize-animation"
-                      >
-                        <Link 
-                          href={link.href}
-                          className={`nav-mobile-link ${activeLink === link.href ? 'nav-mobile-active' : ''}`}
-                          onClick={() => {
-                            setActiveLink(link.href)
-                            setIsMobileMenuOpen(false)
-                          }}
-                          aria-current={activeLink === link.href ? "page" : undefined}
-                          suppressHydrationWarning
-                        >
-                          <div className="nav-mobile-link-content">
-                            <div className="nav-mobile-dot"></div>
-                            <span>{link.label}</span>
-                          </div>
-                          <motion.div
-                            whileHover={{ x: 5 }}
-                            transition={{ type: "spring", stiffness: 400 }}
-                            className="optimize-animation"
-                          >
-                            <ChevronRight className="h-4 w-4" />
-                          </motion.div>
-                          {activeLink === link.href && (
-                            <motion.div
-                              className="absolute inset-0 bg-gradient-to-r from-primary/15 to-primary/5 rounded-lg -z-10 optimize-animation"
-                              layoutId="mobileNavIndicator"
-                              transition={{ type: "spring", damping: 20 }}
-                            />
-                          )}
-                        </Link>
-                      </motion.div>
-                    ))}
-                  </nav>
-                </div>
-                <div className="mt-auto pb-5">
-                  <div className="nav-mobile-footer">
-                    <Button 
-                      size="sm" 
-                      className="w-full nav-mobile-resume group"
-                      asChild
-                    >
-                      <Link href="https://drive.google.com/file/d/1T26Kq9ct7FUtCH04QM5JGDwv2-tw_1As/view?usp=sharing" target="_blank" rel="noopener noreferrer" suppressHydrationWarning>
-                        <span className="relative z-10">View Resume</span>
-                        <motion.div
-                          className="absolute inset-0 bg-gradient-to-r from-primary/80 via-blue-600/80 to-primary/80 rounded-lg opacity-90 -z-0 optimize-animation"
-                          initial={{ x: "-100%" }}
-                          whileHover={{ x: 0 }}
-                          transition={{ duration: 0.3 }}
-                        />
-                        <span className="nav-mobile-resume-shine"></span>
-                      </Link>
-                    </Button>
-                    <div className="flex justify-center mt-5">
-                      <button
-                        ref={mobileThemeRef}
-                        onClick={toggleMobileThemeHandler}
-                        className="nav-theme-toggle-mobile"
-                        suppressHydrationWarning
-                      >
-                        {mounted && (theme === "dark" ? 
-                          <span className="flex items-center">Switch to Light <Sun className="h-4 w-4 ml-2 text-yellow-400" /></span> : 
-                          <span className="flex items-center">Switch to Dark <Moon className="h-4 w-4 ml-2 text-primary" /></span>
-                        )}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-
-
     </>
   )
 }

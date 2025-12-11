@@ -9,9 +9,14 @@ export function GlobalScrollIndicator() {
   const [visible, setVisible] = useState(false)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const [mounted, setMounted] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     setMounted(true)
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
   useEffect(() => {
@@ -25,14 +30,14 @@ export function GlobalScrollIndicator() {
       setScroll(scrolled)
       setVisible(true)
       if (timeoutRef.current) clearTimeout(timeoutRef.current)
-      timeoutRef.current = setTimeout(() => setVisible(false), 900)
+      timeoutRef.current = setTimeout(() => setVisible(false), isMobile ? 600 : 900)
     }
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => {
       window.removeEventListener("scroll", onScroll)
       if (timeoutRef.current) clearTimeout(timeoutRef.current)
     }
-  }, [mounted])
+  }, [mounted, isMobile])
 
   if (!mounted) return null
 
@@ -50,8 +55,8 @@ export function GlobalScrollIndicator() {
           <motion.div
             className="relative w-14 h-14 pointer-events-auto"
             initial={false}
-            animate={{ rotate: 360 * scroll }}
-            transition={{ type: "spring", stiffness: 60, damping: 20 }}
+            animate={isMobile ? {} : { rotate: 360 * scroll }}
+            transition={isMobile ? {} : { type: "spring", stiffness: 60, damping: 20 }}
           >
             <svg width={56} height={56} className="absolute inset-0" style={{ filter: "drop-shadow(0 0 8px #a78bfa66)" }}>
               <circle
@@ -88,7 +93,7 @@ export function GlobalScrollIndicator() {
               </defs>
             </svg>
             <div className="absolute inset-0 flex items-center justify-center">
-              <Mouse className="h-7 w-7 text-primary animate-bounce" />
+              <Mouse className={`h-7 w-7 text-primary ${isMobile ? '' : 'animate-bounce'}`} />
             </div>
           </motion.div>
           <span className="mt-2 text-xs font-semibold text-primary/80 bg-background/80 px-2 py-0.5 rounded-full shadow group-hover:scale-110 transition-transform pointer-events-auto">
