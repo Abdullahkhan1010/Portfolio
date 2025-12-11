@@ -36,7 +36,7 @@ A modern, responsive full-stack developer portfolio built with **Next.js 15**, *
 
 ## 🚀 Live Demo
 
-🌐 **[View Live Portfolio](https://abdullahkhan-portfolio.com)** *(Update with your domain)*
+🌐 **[View Live Portfolio](https://portfolio-abdullah-virid.vercel.app/)**
 
 ## 📸 Screenshots
 
