@@ -47,7 +47,7 @@ A modern, responsive full-stack developer portfolio built with **Next.js 15**, *
 ![Home - Light Mode](https://raw.githubusercontent.com/Abdullahkhan1010/Portfolio/main/public/homelight.png)
 
 ### Skills Section
-![Skills Section](https://raw.githubusercontent.com/Abdullahkhan1010/Portfolio/main/public/skills.png)
+![Skills Section](https://raw.githubusercontent.com/Abdullahkhan1010/Portfolio/main/public/skillss.png)
 
 ### About Section
 ![About Section](https://raw.githubusercontent.com/Abdullahkhan1010/Portfolio/main/public/about.png)
@@ -82,7 +82,7 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+The application will be available in your browser.
 
 ## 📁 Project Structure
 
@@ -142,7 +142,7 @@ Have questions, feedback, or want to collaborate? Reach out:
 - **GitHub**: [@Abdullahkhan1010](https://github.com/Abdullahkhan1010)
 - **LinkedIn**: [Abdullah Khan](https://www.linkedin.com/in/abdullah-khan-webdev/)
 - **Email**: [abdullah.khan1010@gmail.com](mailto:abdullah.khan1010@gmail.com)
-- **Portfolio**: [abdullahkhan.dev](https://abdullahkhan-portfolio.com) *(Update with your domain)*
+- **Portfolio**: [portfolio-abdullah-virid.vercel.app](https://portfolio-abdullah-virid.vercel.app/)
 
 ---
 
